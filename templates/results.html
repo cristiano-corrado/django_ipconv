@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block breadcrumb %}
+    <li class="breadcrumb-item active">IP Selection</li>
+{% endblock %}
+
+
+{% block content %}
+    {% csrf_token %}
+    <div class="container-fluid">
+        <div class="row" >
+            <div class="col-md-6">
+
+                <div id="valid" class="span6 text-center" style="vertical-align: middle">
+                    <h1> Ip Addresses Unpacked</h1>
+                </div>
+                <div class="text-left">
+                    <button id="button1" class="btn btn-success" onclick="CopyToClipboard('results')">Click to copy</button>
+                    <a href="/static/downloads/{{ downloadFile }}" download="{{ downloadFile }}.txt">
+                        <button class="btn btn-primary" type="button">Download</button>
+                    </a>
+                </div>
+                <div id='results' class="container-xl mt-3 border " >
+                    {% for result in results %}
+                        {{result}},
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div id="invalid" class="span6 text-center" style="vertical-align: right">
+                    <h1>Invalid strings in list</h1>
+                </div>
+                <div class="text-left">
+                    <button id="button1" class="btn btn-success" onclick="CopyToClipboard('invalid-results')">Click to copy</button>
+                </div>
+                <div id='invalid-results' class="container-xl mt-3 border position-relative" >
+                    {% for inval in invalid %}
+                        {{ inval.string }},
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+<script>
+    function CopyToClipboard(containerid) {
+        if (document.selection) {
+            var range = document.body.createTextRange();
+            range.moveToElementText(document.getElementById(containerid));
+            range.select().createTextRange();
+            document.execCommand("copy");
+
+        } else if (window.getSelection) {
+            var range = document.createRange();
+            range.selectNode(document.getElementById(containerid));
+            window.getSelection().addRange(range);
+            document.execCommand("copy");
+
+        }
+    }
+</script>
+{% endblock %}

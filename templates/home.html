@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block breadcrumb %}
+<li class="breadcrumb-item active">IP Selection</li>
+
+{% endblock %}
+
+{% block content %}
+    <div id="container" class="container">
+        <form action="/" method="post" novalidate>
+            {% csrf_token %}
+            {{ form }}
+
+
+
+    </div>
+    <div id="container" class="container mt-2 " >
+        <button type="submit" class="btn btn-success carousel">Submit</button>
+    </div>
+</form>
+
+
+{% endblock %}
